@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>正则表达式</title>
+    <style>
+    i {
+        font-style: normal;
+        color: #f00;
+        font-weight: 700;
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <label>请输入手机号判断：
+            <input type="text" id="tel">
+        </label>
+        <span><i id="telTip">是/不是</i>有效手机号</span>
+    </div>
+    <div>
+        <label>请输入字符串判断：
+            <input type="text" id="str">
+        </label>
+        <span>输入的字符串<i id="strTip">有/没有</i>相邻重复单词</span>
+    </div>
+    <button id="testBtn">点击测试</button>
+    <script>
+    function $(id) {
+        return document.getElementById(id);
+    }
+    var tel = $('tel');
+    var str = $('str');
+    $('testBtn').addEventListener('click', function() {
+        var telText = tel.value;
+        var strText = str.value;
+        var m = telText.search(/^1\d{10}$/);
+        if (m >= 0) {
+            $('telTip').innerHTML = '是';
+        } else {
+            $('telTip').innerHTML = '不是';
+        }
+        var re = /(?:^|\u0020)([A-Za-z]+(?:-[A-Za-z]+)*)\u0020+\1(?=\u0020|$)/g;
+        var lastM;
+        var currM;
+        var strFlag = false;
+        if (re.exec(strText)) {
+            $('strTip').innerHTML = '有';
+        } else {
+            $('strTip').innerHTML = '没有';
+        }
+    });
+    </script>
+</body>
+</html>
